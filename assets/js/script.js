@@ -40,41 +40,49 @@ for (var i = timeBeginning; i < timeEnding+1; i++) {
 // Check array
 // console.log(timeArr);
 
+function init() {
+    renderDateTime;
+    renderEvents;
+    setBlockColors;
+}
+
+init();
+
 // Clear data button function
 var clearData = document.getElementById('clear-data');
 
 clearData.onclick = function() {
     localStorage.clear();
-    document.getElementsByTagName('textarea').val("");
+    $('textarea').val("");
+};
+
+//Pull from local storage to show in blocks
+function renderEvents() {
+    for (var i = 0; i < timeArr.length; i++) {
+        $('[id^=tb-]').each(function(i, x) {
+            $(x).val(localStorage.getItem('tb' + timeArr[i]));
+        })
+    }
 };
 
 // Save button function
-var saveButton = document.getElementsByClassName('saveBtn');
+var saveButton = $('.saveBtn');
 
-saveButton.addEventListener('click', buttonSaving());
+saveButton.on('click', buttonSaving);
 
 function buttonSaving(event) {
     // Prevents form from sending
     event.preventDefault();
     // Sets the time value to the timeblock the save button was selected in
     blockEventTime = $(this).attr('id').split('-')[1];
-    // Sets the text value to the input from the user
+    // // Sets the text value to the input from the user
     blockEventText = $(this).siblings('textarea[name^="tb"]').val().trim();
     localStoreEvents();
 };
 
 // Save to local storage
 function localStoreEvents() {
-    localStorage.setItem('tb ' + blockEventTime, blockEventText);
-};
-
-//Pull from local storage to show in blocks
-function renderEvents() {
-    for (var i = 0; i <timeArr.length; i++) {
-        $('[id^=tb-]').each(function(i, x) {
-            $(x).val(localStorage.getItem('tb ' + timeArr[i]));
-        })
-    }
+    localStorage.setItem('tb' + blockEventTime, blockEventText);
 };
 
 // Change timeblock color according to the relativity to the current time
@@ -105,11 +113,3 @@ function setBlockColors() {
 };
 
 perMinuteInterval();
-
-function init() {
-    renderDateTime;
-    renderEvents;
-    setBlockColors;
-}
-
-init();
