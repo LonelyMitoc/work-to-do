@@ -19,7 +19,7 @@ textarea{
   background-color: transparent;
   color: black;
   border-radius: 0;
-  border-bottom: 10px solid black;
+  border-bottom: 1px solid black;
   background: rgb(14,0,255);
   background: linear-gradient(153deg, rgba(14,0,255,1) 0%, rgba(45,255,147,1) 62%, rgba(0,255,244,1) 100%);
 }
@@ -90,4 +90,33 @@ textarea{
   padding: 10px 10px;
   border-radius: 20px;
   box-shadow: 0 0 10px 1px red;
+}
+
+@media screen and (max-width: 767px) {
+  .row {
+    margin-bottom: 10em;
+  }
+
+  textarea {
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    border: 1px black solid;
+  }
+
+  .hour {
+    padding-top: 15px;
+    margin-bottom: -30px;
+  }
+
+  .saveBtn {
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+.time-block {
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
 }

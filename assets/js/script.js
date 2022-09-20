@@ -37,17 +37,6 @@ for (var i = timeBeginning; i < timeEnding+1; i++) {
     timeArr.push(i);
 };
 
-// Check array
-// console.log(timeArr);
-
-function init() {
-    renderDateTime;
-    renderEvents;
-    setBlockColors;
-}
-
-init();
-
 // Clear data button function
 var clearData = document.getElementById('clear-data');
 
@@ -59,10 +48,33 @@ clearData.onclick = function() {
 //Pull from local storage to show in blocks
 function renderEvents() {
     for (var i = 0; i < timeArr.length; i++) {
-        $('[id^=tb-]').each(function(i, x) {
-            $(x).val(localStorage.getItem('tb' + timeArr[i]));
+        $('[id^=tb-]').each(function (i, x) {
+            $(x).val(localStorage.getItem('t b ' + timeArr[i]));
         })
     }
+
+    // Failed codes for future notes
+        // if (localStorage.getItem("tb") !== null) {
+    //     var savedEvents = JSON.parse(localStorage.getItem("tb"));
+    // }
+
+    // savedEvents.id = will retrieve the id number
+    // savedEvents.text = will retrieve the text value
+    // for (var i = 0; i < timeArr.length; i++) {
+    //     if (savedEvents.id[i]) {
+    //         $('tb-[i]').textContent = savedEvents.text[i];
+    //         $('tb-[i]').val(savedEvents.text[i]);
+    //     }
+    // }
+
+    // $('#tb-8').val(localStorage.getItem("t b 8"));
+
+    // for (var i = 0; i < timeArr.length; i++) {
+    //     $('[id^=tb-]').each(function (i, x) {
+    //         $(x).val(savedEvents.text[i]);
+    //     })
+    // }
+
 };
 
 // Save button function
@@ -82,14 +94,25 @@ function buttonSaving(event) {
 
 // Save to local storage
 function localStoreEvents() {
-    localStorage.setItem('tb' + blockEventTime, blockEventText);
+    localStorage.setItem('t b ' + blockEventTime, blockEventText);
+    // Other solution to saving locally into one key instead of multiple
+    // var localData = JSON.parse(localStorage.getItem("tb")) || [];
+    // console.log(localData); 
+    // [{ id: ,text:},{}]
+    // var newData = { "id": blockEventTime , "text": blockEventText}
+    // console.log(newData);
+    // localData.push(newData);
+    // localStorage.setItem('tb', JSON.stringify(localData));
 };
 
 // Change timeblock color according to the relativity to the current time
 var blockHour = '';
 var timeBlockHour = $("textarea[id*='tb']");
 
+
 function setBlockColors() {
+    // var timeBlockHour = $(".textArea");
+    // console.log(timeBlockHour);
     timeBlockHour.each(function() {
         // Set the block hour to the number in the id
         blockHour = $(this).attr('id').split('-')[1];
@@ -113,3 +136,15 @@ function setBlockColors() {
 };
 
 perMinuteInterval();
+renderEvents();
+
+// Check for loop separately to confirm that it functions correctly
+// $('#tb-8').val(localStorage.getItem("t b 8"));
+// $('#tb-9').val(localStorage.getItem("t b 9"));
+// $('#tb-10').val(localStorage.getItem("t b 10"));
+
+// for (var i = 0; i < timeArr.length; i++) {
+//     $('[id^=tb-]').each(function (i, x) {
+//         $(x).val(localStorage.getItem('t b ' + timeArr[i]));
+//         })
+//     }
